@@ -2,6 +2,8 @@ import re
 import os
 
 
+# do some regex madness here instead.
+
 def parse_request(request):
     request_type = request[:5]
     print("Request Type", request_type)

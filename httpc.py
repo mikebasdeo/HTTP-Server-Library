@@ -24,8 +24,7 @@ def connect():
         print("Response: " + response.decode("utf-8"))
     finally:
         sock.close()
-
-
+    
 
 # create parser to pull out url from the command line
 parser = argparse.ArgumentParser(description='Mike Basdeo - 26788815 \r\nhttpc is a curl-like application but supports HTTP protocol only', add_help=False, formatter_class=RawTextHelpFormatter)
@@ -71,6 +70,7 @@ if(args.mode == 'get'):
     message += '\r\n'
     connect()
 
+
 # post request
 if(args.mode == 'post'):
     if(args.data):
@@ -87,6 +87,7 @@ if(args.mode == 'post'):
     message += 'Host:' +server+':'+str(port)+'\r\n'
     message += 'Connection: close\r\n\r\n'
     message += data+'\r\n'
+    connect()
 
 # output to file
 if(args.output):
@@ -94,8 +95,6 @@ if(args.output):
     sys.stdout = f
     connect()
     f.close()
-else:
-    connect()
 
 
 
