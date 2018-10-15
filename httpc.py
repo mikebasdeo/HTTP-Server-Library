@@ -8,14 +8,13 @@ import re
 import sys
 from argparse import RawTextHelpFormatter
 
-url_regex = "^((http?):\/)?\/?([^:\/\s\?]+)(\/get\?[^:]+)?"
+url_regex = "^((http?):\/)?\/?([^:\/\s\?]+)\/?([^:\/\s\?]+)?"
 
 def connect():
     sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     try:
         sock.connect((server, int(port)))
 
-        #print("Message to send", message)
         sock.sendall(message.encode())
     
         response = sock.recv(len(message), socket.MSG_WAITALL)

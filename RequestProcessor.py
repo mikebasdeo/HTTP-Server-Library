@@ -1,13 +1,34 @@
 import re
 import os
 
+test_regex = "^([^:\/\s\?]+ \/)?([^:\/\s\?]+)?"
 
-# do some regex madness here instead.
 
 def parse_request(request):
-    request_type = request[:5]
+
+    request = request.decode()
+    print("Request", request)
+    matcher = re.search(test_regex, request)
+
+    request_type = matcher.group(1)
     print("Request Type", request_type)
 
-    if(request_type == b'GET /'):
-        # Returns a list of the current files in the data directory
-        return str(os.listdir(os.getcwd() + '\data'))
+
+    if(request_type =='GET /'):
+
+        
+        if(matcher.group(2)):
+            request_details = matcher.group(2)
+            print("Request Details", request_details)
+            f = open('%s.txt' % request_details, 'r')
+            file_contents = f.read()
+            return (file_contents)
+
+
+        else:
+            return str(os.listdir(os.getcwd() + '\data'))
+
+
+
+
+        
