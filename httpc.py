@@ -10,16 +10,29 @@ from argparse import RawTextHelpFormatter
 
 url_regex = "^((http?):\/)?\/?([^:\/\s\?]+)\/?([^:\/\s\?]+)?"
 
+def connect2():
+    sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+    sock.connect((server, int(port)))
+
+    sock.send(message.encode())
+    response = sock.recv(len(message), socket.MSG_WAITALL)
+    if(args.verbose):
+        sys.stdout.write(response.decode("utf-8"))
+    print(sock.recv(4096).decode("utf-8"))
+    sock.close()
+
 def connect():
     sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     try:
         sock.connect((server, int(port)))
 
-        sock.sendall(message.encode())
-    
+        sock.send(message.encode())
+
         response = sock.recv(len(message), socket.MSG_WAITALL)
         if(args.verbose):
             sys.stdout.write("Response: " + response.decode("utf-8"))
+        # print("Response: " + response.decode("utf-8"))
+        print(sock.recv(4096).decode("utf-8"))
         print("Response: " + response.decode("utf-8"))
     finally:
         sock.close()
@@ -49,6 +62,9 @@ parser.add_argument('-o', dest="output", action="store", metavar="inline-data", 
 # verbose command (optional)
 parser.add_argument('-v','--verbose', action="store_true")
 
+# port command (optional)
+parser.add_argument('-p','--port', help="server port", type=int, default=80)
+
 args = parser.parse_args()
 
 # chop up the found url using regex
@@ -59,7 +75,9 @@ server = matcher.group(3)
 query_param = ''
 if(matcher.group(4)):
     query_param = matcher.group(4)
-port = 8007
+
+if(args.port):
+    port = args.port
 
 # get request
 if(args.mode == 'get'):
@@ -67,8 +85,8 @@ if(args.mode == 'get'):
     message += 'Host:' +server+':'+str(port)+'\r\n'
     message += 'Connection: close\r\n'
     message += '\r\n'
+    print("Message,", message)
     connect()
-
 
 # post request
 if(args.mode == 'post'):
@@ -86,6 +104,7 @@ if(args.mode == 'post'):
     message += 'Host:' +server+':'+str(port)+'\r\n'
     message += 'Connection: close\r\n\r\n'
     message += data+'\r\n'
+    
     connect()
 
 # output to file

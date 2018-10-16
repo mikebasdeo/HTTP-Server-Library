@@ -20,7 +20,7 @@ def parse_request(request):
         if(matcher.group(2)):
             request_details = matcher.group(2)
             print("Request Details", request_details)
-            f = open('%s.txt' % request_details, 'r')
+            f = open('data/%s.txt' % request_details, 'r')
             file_contents = f.read()
             return (file_contents)
 
