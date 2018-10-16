@@ -1,5 +1,7 @@
 import re
 import os
+import os.path
+from pathlib import Path
 
 test_regex = "^([^:\/\s\?]+ \/)?([^:\/\s\?]+)?"
 
@@ -20,9 +22,21 @@ def parse_request(request):
         if(matcher.group(2)):
             request_details = matcher.group(2)
             print("Request Details", request_details)
-            f = open('data/%s.txt' % request_details, 'r')
-            file_contents = f.read()
-            return (file_contents)
+
+            # todo error handling for file open/read
+            my_file = Path("data/%s.txt" % request_details)
+            if os.path.isfile(my_file):
+                f = open(my_file, 'r')
+                file_contents = f.read()
+                print("made it here")
+                return (file_contents)
+                
+            else:
+                error_message = "Error 404: File Not Found"
+                return(error_message)
+
+
+
 
 
         else:

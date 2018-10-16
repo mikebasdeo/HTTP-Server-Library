@@ -10,16 +10,16 @@ from argparse import RawTextHelpFormatter
 
 url_regex = "^((http?):\/)?\/?([^:\/\s\?]+)\/?([^:\/\s\?]+)?"
 
-def connect2():
-    sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-    sock.connect((server, int(port)))
+# def connect2():
+#     sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+#     sock.connect((server, int(port)))
 
-    sock.send(message.encode())
-    response = sock.recv(len(message), socket.MSG_WAITALL)
-    if(args.verbose):
-        sys.stdout.write(response.decode("utf-8"))
-    print(sock.recv(4096).decode("utf-8"))
-    sock.close()
+#     sock.send(message.encode())
+#     response = sock.recv(len(message), socket.MSG_WAITALL)
+#     if(args.verbose):
+#         sys.stdout.write(response.decode("utf-8"))
+#     print(sock.recv(4096).decode("utf-8"))
+#     sock.close()
 
 def connect():
     sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
@@ -31,9 +31,12 @@ def connect():
         response = sock.recv(len(message), socket.MSG_WAITALL)
         if(args.verbose):
             sys.stdout.write("Response: " + response.decode("utf-8"))
-        # print("Response: " + response.decode("utf-8"))
-        print(sock.recv(4096).decode("utf-8"))
-        print("Response: " + response.decode("utf-8"))
+            print(sock.recv(4096).decode("utf-8"))
+            #print("Response: " + response.decode("utf-8"))
+        else:
+            print(sock.recv(4096).decode("utf-8"))
+            print("Response: " + response.decode("utf-8"))
+
     finally:
         sock.close()
     
