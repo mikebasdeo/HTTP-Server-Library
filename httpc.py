@@ -8,18 +8,7 @@ import re
 import sys
 from argparse import RawTextHelpFormatter
 
-url_regex = "^((http?):\/)?\/?([^:\/\s\?]+)\/?([^:\/\s\?]+)?"
-
-# def connect2():
-#     sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-#     sock.connect((server, int(port)))
-
-#     sock.send(message.encode())
-#     response = sock.recv(len(message), socket.MSG_WAITALL)
-#     if(args.verbose):
-#         sys.stdout.write(response.decode("utf-8"))
-#     print(sock.recv(4096).decode("utf-8"))
-#     sock.close()
+url_regex = r"^((http?):\/)?\/?([^:\/\s\?]+)\/?([^:\/\s\?]+)?"
 
 def connect():
     sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)

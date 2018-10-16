@@ -1,10 +1,11 @@
 import re
 import os
+import sys
 import os.path
 from pathlib import Path
 
-test_regex = "^([^:\/\s\?]+ \/)?([^:\/\s\?]+)?"
-
+#test_regex = "^([^:\/\s\?]+ \/)?([^:\/\s\?]+)?"
+test_regex = r"^([^:\/\s\?]+ \/)?([^:\/\s\?]+)?(.*\s.*)*(\s\s)(.*)?"
 
 def parse_request(request):
 
@@ -13,7 +14,18 @@ def parse_request(request):
     matcher = re.search(test_regex, request)
 
     request_type = matcher.group(1)
-    print("Request Type", request_type)
+
+
+    if(request_type=='POST /'):
+        print("Fucking Request", request)
+        # get file
+        request_details = matcher.group(2)
+
+        # get data
+        request_data = matcher.group(3)
+        print("Request Data to put in file", request_data)
+        # put data in file
+
 
 
     if(request_type =='GET /'):
@@ -40,7 +52,7 @@ def parse_request(request):
 
 
         else:
-            return str(os.listdir(os.getcwd() + '\data'))
+            return str(os.listdir(os.getcwd() + r'\data'))
 
 
 
