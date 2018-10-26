@@ -55,7 +55,7 @@ parser.add_argument('-o', dest="output", action="store", metavar="inline-data", 
 parser.add_argument('-v','--verbose', action="store_true")
 
 # port command (optional)
-parser.add_argument('-p','--port', help="server port", type=int, default=80)
+parser.add_argument('-p','--port', help="server port", type=int, default=8007)
 
 args = parser.parse_args()
 

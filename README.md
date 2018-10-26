@@ -5,17 +5,14 @@
 
 `python echoserver.py --port 8007`
 
-# Run echo client
+# Httpc Get Command 
+## Will return a list of the current files in the data directory.
+./httpc.py get localhost
 
-`python echoclient.py --host localhost --port 8007`
+# Httpc Get/*
+## Will return the contents of the fille named * inside the data directory.
+./httpc get localhost/foo
 
-# Run time server
-
-`python timeserver.py --port 8037`
-
-# Run time client
-
-`python timelient.py --host localhost --port 8037`
 
 # Mike's Notes
 `python httpc.py get localhost`
