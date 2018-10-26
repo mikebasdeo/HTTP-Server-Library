@@ -4,7 +4,6 @@ import RequestProcessor
 import argparse
 
 
-
 def run_server(host, port):
     listener = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     try:
@@ -31,9 +30,22 @@ def handle_client(conn, addr):
     finally:
         conn.close()
 
-
-# Usage python echoserver.py [--port port-number]
 parser = argparse.ArgumentParser()
 parser.add_argument("--port", help="echo server port", type=int, default=8007)
+parser.add_argument('-d', dest="data", action="store", metavar="inline-data", help="Specifies the directory the server will use to read/write. Default is the current directory.")
+parser.add_argument('-v','--verbose', action="store_true")
+
 args = parser.parse_args()
+
+# handles directory change
+RequestProcessor.setDirectory("data")
+if(args.data):
+    RequestProcessor.setDirectory(args.data)
+if (args.verbose):
+    RequestProcessor.setVerbose()
+    
+
+
 run_server('', args.port)
+
+
