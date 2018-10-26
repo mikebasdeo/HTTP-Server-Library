@@ -91,7 +91,7 @@ if(args.mode == 'post'):
     print(data)
     data_bytes = data.encode()
   
-    message  = 'POST /post HTTP/1.1\r\n'
+    message  = 'POST /'+query_param+' HTTP/1.1\r\n'
     message += 'Content-length:'+str(len(data_bytes))+'\r\n'
     message += 'Host:' +server+':'+str(port)+'\r\n'
     message += 'Connection: close\r\n\r\n'

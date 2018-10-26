@@ -21,10 +21,24 @@ def parse_request(request):
         # get file
         request_details = matcher.group(2)
 
+        print("Fucking Request Details", request_details)
+
         # get data
         request_data = matcher.group(3)
         print("Request Data to put in file", request_data)
         # put data in file
+        my_file = Path("data/%s.txt" % request_details)
+        if os.path.isfile(my_file):
+            f = open(my_file, 'w')
+            f.write(request_data)            
+        else:
+            error_message = "Error 6969 Writing to file error"
+            return(error_message)
+
+
+
+
+
 
 
 
